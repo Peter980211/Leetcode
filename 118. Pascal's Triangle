@@ -1,0 +1,45 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        LinkedList<List<Integer>> result = new LinkedList<>();
+        Queue<Integer> q = new LinkedList<>();
+        for(int i=0; i<numRows; i++){
+            ArrayList<Integer> thisLine = new ArrayList<>();
+            if(i==0){
+                thisLine.add(1);
+                q.add(1);
+                result.add(thisLine);
+                continue;
+            }
+            if(i==1){
+                thisLine.add(1);
+                thisLine.add(1);
+                q.add(1);
+                result.add(thisLine);
+                System.out.print(thisLine.size());
+                continue;
+            }
+            else{
+                int count = q.size();
+                int a1=0;
+                int a2=q.poll();
+                for(int j=0;j<count;j++){
+                    thisLine.add(a1+a2);
+                    a1=a2;
+                    if(j!=count-1){
+                        a2=q.poll();
+                        System.out.print(a2);
+                    }
+                    else{
+                        break;
+                    }
+                }
+                thisLine.add(1);
+            }
+            for(int k = 0; k<thisLine.size();k++){
+                q.add(thisLine.get(k));
+            }
+            result.add(thisLine);
+        }
+        return result;
+    }
+}
