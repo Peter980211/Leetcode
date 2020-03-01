@@ -1,0 +1,39 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        int i = 0;
+        int j = s.length();
+        if(j==0||j==1){
+            return true;
+        }
+        j--;
+        s= s.toLowerCase();
+        while(i<=j){
+            while((!Character.isDigit(s.charAt(i)))&&(!Character.isLetter(s.charAt(i)))){
+                i++;
+                if(i>j){
+                    break;
+                }
+            }
+            while((!Character.isDigit(s.charAt(j)))&&(!Character.isLetter(s.charAt(j)))){
+                
+                j--;
+                if(j<i){
+                    break;
+                }
+            }
+            if(i>j){
+                break;
+            }
+            char front = s.charAt(i);
+            char back = s.charAt(j);
+            if(front != back){
+                return false;
+            }
+            else{
+                i++;
+                j--;
+            }
+        }
+        return true;
+    }
+}
