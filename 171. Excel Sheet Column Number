@@ -1,0 +1,23 @@
+//方法一，利用StringBuilder类反转字符串
+class Solution {
+    public int titleToNumber(String s) {
+        int n = 1;
+        int result=0;
+        s= new StringBuilder(s).reverse().toString();
+        for(int i=0;i<s.length();i++){
+            result+=n*(s.charAt(i)-'A'+1);
+            n*=26;
+        }
+        return result;
+    }
+}
+//方法二，自前向后处理字符串
+class Solution {
+    public int titleToNumber(String s) {
+        int result = 0;
+        for(int i=0;i<s.length();i++){
+            result = result*26 + s.charAt(i)-'A'+1;
+        }
+        return result;
+    }
+}
