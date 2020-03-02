@@ -1,0 +1,24 @@
+//快慢指针法，对于一个环，快慢指针总会重合。
+class Solution {
+    public boolean isHappy(int n) {
+        int slow = n;
+        int fast = n;
+        do{
+            slow=squareSum(slow);
+            fast=squareSum(fast);
+            fast=squareSum(fast);
+            if(fast==1){
+                return true;
+            }
+        }while(slow!=fast);
+        return false;
+    }
+    private int squareSum(int m){
+        int result = 0;
+        while(m!=0){
+            result = result + (m%10)*(m%10);
+            m=m/10;
+        }
+        return result;
+    }
+}
