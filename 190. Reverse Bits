@@ -1,0 +1,16 @@
+public class Solution {
+    // you need treat n as an unsigned value
+    public int reverseBits(int n) {
+        int result=0;
+        for(int i=31;i>=0;i--){
+            int digit = n&1;
+            if(i==0){
+                result+=digit;
+                break;
+            }
+            result = result + (digit<<i);
+            n=n>>1;
+        }
+        return result;
+    }
+}
