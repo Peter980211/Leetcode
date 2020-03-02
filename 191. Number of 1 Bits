@@ -1,0 +1,25 @@
+//遍历
+public class Solution {
+    // you need to treat n as an unsigned value
+    public int hammingWeight(int n) {
+        int count = 0;
+        for(int i = 0; i < 32; i++){
+            int digit = n & 1;
+            count = count + digit;
+            n = n >> 1;
+        }
+        return count;
+    }
+}
+//利用n&=(n-1)消除后面的一个"1"
+public class Solution {
+    // you need to treat n as an unsigned value
+    public int hammingWeight(int n) {
+        int sum = 0;
+        while(n!=0){
+            sum+=1;
+            n&=(n-1);
+        }
+        return sum;
+    }
+}
