@@ -1,0 +1,11 @@
+//本解答利用求和公式求前n个数字的和。另一个更好的方法是在for循环中利用每层循环的int i来计算和。此题也可以利用XOR解答。
+class Solution {
+    public int missingNumber(int[] nums) {
+        int sum = 0;
+        int l = nums.length;
+        for(int num : nums){
+            sum += num;
+        }
+        return (l+1)*(l/2)+((l+1)/2)*(l%2)-sum;
+    }
+}
