@@ -1,0 +1,29 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+//遍历法，不可取
+class Solution {
+    public void deleteNode(ListNode node) {
+        ListNode p1 = node;
+        ListNode p2 = node.next;
+        while(p2.next!=null){
+            p1.val=p2.val;
+            p1=p1.next;
+            p2=p2.next;
+        }
+        p1.val=p2.val;
+        p1.next=null;
+    }
+}
+//将node连接到下下个结点，O(1)复杂度
+class Solution {
+    public void deleteNode(ListNode node) {
+        node.val=node.next.val;
+        node.next=node.next.next;
+    }
+}
