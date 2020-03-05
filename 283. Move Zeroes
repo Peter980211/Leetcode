@@ -1,0 +1,38 @@
+//My Answer
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int i = 0;
+        int j;
+        while(i!=nums.length-1){
+            while(i<=nums.length-1&&nums[i]!=0){
+                i++;
+            }
+            j=i+1;
+            while(j<=nums.length-1&&nums[j]==0){
+                j++;
+            }
+            if(i>=nums.length||j>=nums.length){
+                break;
+            }
+            nums[i]=nums[j];
+            nums[j]=0;
+            i++;
+        }
+    }
+}
+//Better Solution
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int i  = 0;
+        int cur = 0;
+        for(i = 0; i < nums.length; i++){
+            if(nums[i] != 0){
+                nums[cur] = nums[i];
+                if(i != cur){
+                    nums[i] = 0;
+                }
+                cur++;
+            }
+        }
+    }
+}
