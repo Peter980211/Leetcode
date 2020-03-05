@@ -1,0 +1,27 @@
+//利用split函数分割字符串
+class Solution {
+    public boolean wordPattern(String pattern, String str) {
+        if(pattern==null||str==null){
+            return false;
+        }
+        String[] string = str.split(" ");
+        if(string.length!=pattern.length()){
+            return false;
+        }
+        HashMap<Character, String> h = new HashMap<>();
+        for(int i = 0; i < string.length; i++){
+            char c = pattern.charAt(i);
+            if(h.containsKey(c)){
+                if(h.get(c).equals(string[i])){
+                    continue;
+                }
+                return false;
+            }else if(h.containsValue(string[i])){
+                return false;
+            }else{
+                h.put(c,string[i]);
+            }
+        }
+        return true;
+    }
+}
