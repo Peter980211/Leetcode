@@ -1,0 +1,35 @@
+//暴力法
+class Solution {
+    public String getHint(String secret, String guess) {
+        int[] flagA = new int[guess.length()];
+        int[] flagB = new int[guess.length()];
+        int i,j;
+        int A = 0;
+        int B = 0;
+        Arrays.fill(flagA,0);
+        Arrays.fill(flagB,0);
+        char[] s = secret.toCharArray();
+        char[] g = guess.toCharArray();
+        for(i = 0; i < s.length; i++){
+            if(s[i]==g[i]){
+                A++;
+                flagA[i]=1;
+                flagB[i]=1;
+            }
+        }
+        for(i = 0; i < s.length; i++){
+            if(flagA[i]==0){
+                for(j = 0; j < s.length; j++){
+                    if(g[j]==s[i]&&flagB[j]==0){
+                        flagA[i]=1;
+                        flagB[j]=1;
+                        B++;
+                        break;
+                    }
+                }
+            }
+        }
+        return A + "A" + B +"B";
+    }
+}
+//此外，可以用总长度-bulls-未匹配的个数得到cows,利用桶可以求得未匹配的数字个数。
