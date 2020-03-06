@@ -1,0 +1,35 @@
+/*
+Follow Up:
+-What if elements of nums2 are stored on disk, and the memory is 
+limited such that you cannot load all elements into the memory at
+once?
+
+-If only nums2 cannot fit in memory, put all elements of nums1 into a HashMap, 
+read chunks of array that fit into the memory, and record the intersections.
+*/
+
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> m = new HashMap<>();
+        int i;
+        ArrayList<Integer> result = new ArrayList<>();
+        for(i = 0; i< nums1.length; i++){
+            if(m.containsKey(nums1[i])){
+                m.put(nums1[i],m.get(nums1[i])+1);
+            }else{
+                m.put(nums1[i],1);
+            }
+        }
+        for(i = 0; i < nums2.length; i++){
+            if(m.containsKey(nums2[i])&&m.get(nums2[i])>0){
+                m.put(nums2[i],m.get(nums2[i])-1);
+                result.add(nums2[i]);
+            }
+        }
+        int[] ret = new int[result.size()];
+        for(i = 0; i < ret.length; i++){
+            ret[i]=result.get(i);
+        }
+        return ret;
+    }
+}
