@@ -1,0 +1,39 @@
+/*
+1.String s转char[] c, 利用s.toCharArray()函数;
+2.char[] c转String s, 利用String.valueOf(c). 注意这里如果使用c.toString(), 会得到[a,b,c,d]这样的输出。
+*/
+class Solution {
+    public String reverseVowels(String s) {
+        char[] c = s.toCharArray();
+        int i = 0;
+        int j = c.length-1;
+        char temp;
+        while(i<j){
+            while(!isVowel(c[i])&&i<j){
+                i++;
+            }
+            while(!isVowel(c[j])&&i<j){
+                j--;
+            }
+            if(i>j){
+                break;
+            }
+            else{
+                temp=c[i];
+                c[i]=c[j];
+                c[j]=temp;
+                i++;
+                j--;
+            }
+        }
+        return String.valueOf(c);
+    }
+    private boolean isVowel(char a){
+        if(a=='a'||a=='e'||a=='i'||a=='o'||a=='u'||a=='A'||a==
+        'E'||a=='I'||a=='O'||a=='U'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
