@@ -1,0 +1,42 @@
+//暴力法
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        char[] r = ransomNote.toCharArray();
+        char[] m = magazine.toCharArray();
+        boolean found = false;
+        for(int i = 0; i < r.length; i++){
+            for(int j = 0; j < m.length; j++){
+                if(m[j] == r[i]){
+                    m[j] = '0';
+                    found = true;
+                    break;
+                }
+            }
+            if(found == false){
+                return false;
+            }else{
+                found = false;
+            }
+        }
+        return true;
+    }
+}
+//Better Solution利用一个数组start[26]记录每个字母的查找起始位置，magazine中这个位置以后的该字母都是未使用过的。对于ransomNote中的每个字母，
+从这个起始位置开始查找（利用indexOf函数），如果未找到则返回False，如果找到则更新start，下回会从index+1开始查找（避免重复使用magazine中的字母）。
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        if(ransomNote.length() > magazine.length()){
+            return false;
+        }
+        int[] start = new int[26];
+        for(char c : ransomNote.toCharArray()){
+            int index = magazine.indexOf(c, start[c - 'a']);
+            if(index == -1){
+                return false;
+            }else{
+                start[c - 'a'] = index + 1;
+            }
+        }
+        return true;
+    }
+}
