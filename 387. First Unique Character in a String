@@ -1,0 +1,23 @@
+//暴力法，此外可用HashMap
+class Solution {
+    public int firstUniqChar(String s) {
+        char[] f = s.toCharArray();
+        int i, j;
+        boolean flag = false;
+        for(i = 0; i < f.length; i++){
+            for(j = 0; j < f.length; j++){
+                if(f[i] == f[j] && i != j){
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag == true){
+                flag = false;
+                continue;
+            }else{
+                return i;
+            }
+        }
+        return -1;
+    }
+}
