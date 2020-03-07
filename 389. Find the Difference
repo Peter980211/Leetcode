@@ -1,0 +1,39 @@
+//My Answer, HashMap, Brute Force
+class Solution {
+    public char findTheDifference(String s, String t) {
+        HashMap<Character, Integer> h = new HashMap<>();
+        int i;
+        for(i = 0; i < s.length(); i++){
+            if(!h.containsKey(s.charAt(i))){
+                h.put(s.charAt(i),1);
+            }else{
+                h.put(s.charAt(i),h.get(s.charAt(i))+1);
+            }
+        }
+        for(i = 0; i < t.length(); i++){
+            if(!h.containsKey(t.charAt(i))){
+                return t.charAt(i);
+            }else{
+                h.put(t.charAt(i),h.get(t.charAt(i))-1);
+                if(h.get(t.charAt(i)) < 0){
+                    return t.charAt(i);
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+}
+//Better Solution, using xor operation
+class Solution {
+    public char findTheDifference(String s, String t) {
+        int result = 0;
+        int i;
+        for(i = 0; i < s.length(); i++){
+            result ^= s.charAt(i);
+        }
+        for(i = 0; i < t.length(); i++){
+            result ^= t.charAt(i);
+        }
+        return (char)result;
+    }
+}
