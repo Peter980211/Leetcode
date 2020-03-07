@@ -1,0 +1,22 @@
+/* The guess API is defined in the parent class GuessGame.
+   @param num, your guess
+   @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
+      int guess(int num); */
+//二分查找
+public class Solution extends GuessGame {
+    public int guessNumber(int n) {
+        return halfSearch(1,n);
+    }
+    public int halfSearch(int start, int end){
+        int mid = (end - start) / 2 + start;
+        int feedback = guess(mid);
+        if(feedback == 0){
+            return mid;
+        }else if(feedback == -1){
+            return halfSearch(start, mid - 1);
+        }else if(feedback == 1){
+            return halfSearch(mid + 1, end);
+        }
+        return mid;
+    }
+}
