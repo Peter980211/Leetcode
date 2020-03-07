@@ -1,0 +1,53 @@
+//暴力穷举，利用子函数验证1的个数是否满足要求
+class Solution {
+    public List<String> readBinaryWatch(int num) {
+        List<String> res = new LinkedList<>();
+        for(int i = 0; i < 12; i++){
+            for(int j = 0; j < 60; j++){
+                if(count(i)+count(j)==num){
+                    res.add(i + ":" + (j < 10 ? "0" + j : j));
+                }
+            }
+        }
+        return res;
+    }
+    private int count(int n){
+        int ret = 0;
+        while(n != 0){
+            ret++;
+            n = n & (n - 1);
+        }
+        return ret;
+    }
+}
+//*回溯法
+class Solution {
+    
+    int[] weight = {8, 4, 2, 1, 32, 16, 8, 4, 2, 1};
+    
+    public List<String> readBinaryWatch(int num) {
+        List<String> res = new ArrayList<>();
+        helper(0, 0, 0, num, res);
+        return res;
+    }
+    
+    private void helper(int hour, int min, int index, int num, List<String> res) {
+        if (hour > 12 || min >= 60 || hour == 12 && min == 0) {
+            return;
+        }
+        if (num == 0) {
+            String strMin = String.valueOf(min);
+            if (strMin.length() == 1) {
+                strMin = "0" + strMin;
+            }
+            res.add(String.valueOf(hour) + ":" + strMin);
+        } else if (index < 10 && num <= 10 - index && num > 0) {
+            helper(hour, min, index + 1, num, res);
+            if (index < 4) {
+                helper(hour + weight[index], min, index + 1, num - 1, res);
+            } else {
+                helper(hour, min + weight[index], index + 1, num - 1, res);
+            }
+        }
+    }
+}
