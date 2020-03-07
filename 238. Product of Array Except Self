@@ -1,0 +1,49 @@
+//My Solution, without division and in O(n).
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] before = new int[nums.length];
+        int[] after = new int[nums.length];
+        int[] result = new int[nums.length];
+        int i, j;
+        for(i = 0; i < before.length; i++){
+            if(i == 0){
+                before[i] = 1;
+            }else{
+                before[i] = before[i-1] * nums[i-1];
+            }
+        }
+        for(j = after.length - 1; j >= 0; j--){
+            if(j == after.length - 1){
+                after[j] = 1;
+            }else{
+                after[j] = after[j+1] * nums[j+1];
+            }
+        }
+        for(i = 0; i < result.length; i++){
+            result[i] = before[i] * after[i];
+        }
+        return result;
+    }
+}
+//Follow Up: with constant space complexity
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] result = new int[nums.length];
+        int i, j;
+        int afterProduct = 1;
+        int temp;
+        for(i = 0; i < result.length; i++){
+            if(i == 0){
+                result[i] = 1;
+            }else{
+                result[i] = result[i-1] * nums[i-1];
+            }
+        }
+        for(j = result.length - 1; j >= 0; j--){
+            temp = nums[j] * afterProduct;
+            result[j] = afterProduct * result[j];
+            afterProduct = temp;           
+        }
+        return result;
+    }
+}
