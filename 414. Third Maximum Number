@@ -1,0 +1,41 @@
+//改进：可以利用Integer.MIN_VALUE
+class Solution {
+    public int thirdMax(int[] nums) {
+        int i;
+        int max = nums[0];
+        int second = max;
+        boolean isSecondUsed = false;
+        int third = max;
+        boolean isThirdUsed = false;
+        for(i = 1; i < nums.length; i++){
+            if(nums[i] == max || nums[i] == second){
+                continue;
+            }
+            if(nums[i] > max){
+                third = second;
+                second = max;
+                if(isSecondUsed){
+                    isThirdUsed = true;
+                }
+                isSecondUsed = true;
+                max = nums[i];
+            }else if(!isSecondUsed){
+                isSecondUsed = true;
+                second = nums[i];
+            }else if(isSecondUsed && nums[i] > second){
+                isThirdUsed = true;
+                third = second;
+                second = nums[i];
+            }else if(!isThirdUsed){
+                third = nums[i];
+                isThirdUsed = true;
+            }else if(isThirdUsed && nums[i] > third){
+                third = nums[i];
+            }
+        }
+        if(isThirdUsed){
+            return third;
+        }
+        return max;
+    }
+}
