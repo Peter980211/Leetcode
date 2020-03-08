@@ -39,3 +39,38 @@ class Solution {
         return max;
     }
 }
+//简化，相同原理
+class Solution {
+    public int thirdMax(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int second = Integer.MIN_VALUE;
+        int third = Integer.MIN_VALUE;
+        int flag = 0;
+        boolean f = true;
+        for(int i = 0; i < nums.length; i++){
+            int n = nums[i];
+            if(n == Integer.MIN_VALUE && f == true){
+                f = false;
+                flag++;
+            }
+            if(n > max){
+                third = second;
+                second = max;
+                max = n;
+                flag++;
+            }else if(n < max && n > second){
+                third = second;
+                second = n;
+                flag++;
+            }else if(n < second && n > third){
+                third = n;
+                flag++;
+            }
+        }
+        if(flag >= 3){
+            return third;
+        }else{
+            return max;
+        }
+    }
+}
