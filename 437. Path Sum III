@@ -1,0 +1,32 @@
+//分情况递归
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int pathSum(TreeNode root, int sum) {
+        int count = 0;
+        if(root == null){
+            return 0;
+        }
+        if(root.val == sum){
+            count++;
+        }
+        return rootPath(root.left, sum - root.val) + rootPath(root.right, sum - root.val) + pathSum(root.left, sum) + pathSum(root.right, sum) + count;       
+    }
+    private int rootPath(TreeNode root, int sum){
+        if(root == null){
+            return 0;
+        }
+        if(root.val == sum){
+            return 1 + rootPath(root.right, 0) + rootPath(root.left, 0);
+        }else{
+            return rootPath(root.left, sum - root.val) + rootPath(root.right, sum - root.val);
+        }
+    }
+}
