@@ -1,0 +1,30 @@
+class Solution {
+    public String addStrings(String num1, String num2) {
+        StringBuilder result = new StringBuilder("");
+        char[] c1 = num1.toCharArray();
+        char[] c2 = num2.toCharArray();
+        int i = c1.length - 1;
+        int j = c2.length - 1;
+        int carry = 0;
+        while(i >= 0 && j >= 0){
+            result.append((c1[i] - '0' + c2[j] - '0' + carry) % 10);
+            carry = (c1[i] - '0' + c2[j] - '0' + carry) / 10;
+            i--;
+            j--;
+        }
+        while(!(i < 0 && j < 0)){
+            int digit = (i < 0)? c2[j] - '0' : c1[i] - '0';
+            result.append((digit + carry) % 10);
+            carry = (digit + carry) / 10;
+            if(i < 0){
+                j--;
+            }else{
+                i--;
+            }
+        }
+        if(carry == 1){
+            result.append("1");
+        }
+        return result.reverse().toString();
+    }
+}
