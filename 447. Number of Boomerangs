@@ -1,0 +1,30 @@
+class Solution {
+    public int numberOfBoomerangs(int[][] points) {
+        int sum = 0;
+        for(int i = 0; i < points.length; i++){
+            for(int j = i + 1; j < points.length; j++){
+                for(int k = j + 1; k < points.length; k++){
+                    if(numberOfSameDistance(points[i], points[j], points[k]) > 0){
+                        sum = sum + numberOfSameDistance(points[i], points[j], points[k]);
+                    }
+                }
+            }
+        }
+        return sum;
+    }
+    private int numberOfSameDistance(int[] i, int[] j, int[] k){
+        int L01 = (i[0] - j[0]) * (i[0] - j[0]) + (i[1] - j[1]) * (i[1] - j[1]);
+        int L02 = (i[0] - k[0]) * (i[0] - k[0]) + (i[1] - k[1]) * (i[1] - k[1]);
+        int L12 = (k[0] - j[0]) * (k[0] - j[0]) + (k[1] - j[1]) * (k[1] - j[1]);
+        if(L01 == L02 && L02 == L12){
+            return 6;
+        }else if(L01 == L02){
+            return 2;
+        }else if(L01 == L12){
+            return 2;
+        }else if(L02 == L12){
+            return 2;
+        }
+        return 0;
+    }
+}
