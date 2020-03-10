@@ -1,0 +1,53 @@
+//My Answer
+class Solution {
+    public int compress(char[] chars) {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        boolean[] flag = new boolean[chars.length];
+        Arrays.fill(flag, false);
+        while(k <= flag.length - 1){
+            if(k == 0 || chars[k] != chars[k - 1]){
+                flag[k] = true;
+            }
+            k++;
+        }
+        while(i <= chars.length - 1){
+            if(flag[i] == true){
+                chars[j] = chars[i];
+                i++;
+                j++;
+            }else{
+                int count = 1;
+                while(chars[i] == chars[i - 1]){
+                    count++;
+                    i++;
+                    if(i >= chars.length){
+                        break;
+                    }
+                }
+                if(count < 10){
+                    chars[j] = (char)(count + '0');
+                    j++;
+                }else if(count < 100){
+                    chars[j] = (char)((count / 10) + '0');
+                    j++;
+                    chars[j] = (char)((count % 10) + '0');
+                    j++;
+                }else if(count < 1000){
+                    chars[j++] = (char)((count / 100) + '0');
+                    count = count % 100;
+                    chars[j++] = (char)((count / 10) + '0');
+                    chars[j++] = (char)((count % 10) + '0');
+                }else if(count == 1000){
+                    chars[j++] = '1';
+                    chars[j++] = '0';
+                    chars[j++] = '0';
+                    chars[j++] = '0';
+                }
+            }
+        }
+        return j;
+    }
+}
+//此外，可以用("" + int).toCharArray()，直接将一个int数字转化为char数组。
