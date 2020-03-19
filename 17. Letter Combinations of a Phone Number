@@ -1,0 +1,101 @@
+//暴力法
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<>();
+        for(int i = 0; i < digits.length(); i++){
+            char c = digits.charAt(i);
+            char c1, c2, c3;
+            char c4 = 's';
+            switch(c){
+                case '2':
+                    c1 = 'a';
+                    c2 = 'b';
+                    c3 = 'c';
+                    break;
+                case '3':
+                    c1 = 'd';
+                    c2 = 'e';
+                    c3 = 'f';
+                    break;
+                case '4':
+                    c1 = 'g';
+                    c2 = 'h';
+                    c3 = 'i';
+                    break;
+                case '5':
+                    c1 = 'j';
+                    c2 = 'k';
+                    c3 = 'l';
+                    break;
+                case '6':
+                    c1 = 'm';
+                    c2 = 'n';
+                    c3 = 'o';
+                    break;
+                case '7':
+                    c1 = 'p';
+                    c2 = 'q';
+                    c3 = 'r';
+                    c4 = 's';
+                    break;
+                case '8':
+                    c1 = 't';
+                    c2 = 'u';
+                    c3 = 'v';
+                    break;
+                default:
+                    c1 = 'w';
+                    c2 = 'x';
+                    c3 = 'y';
+                    c4 = 'z';
+                    break;
+            }
+            if(c != '7' && c != '9'){
+                if(result.isEmpty()){
+                    String t1 = c1 + "";
+                    String t2 = c2 + "";
+                    String t3 = c3 + "";
+                    result.add(t1);
+                    result.add(t2);
+                    result.add(t3);
+                    continue;
+                }
+                List<String> res = new ArrayList<>();
+                for(String s : result){
+                    String t1 = s + c1 + "";
+                    String t2 = s + c2 + "";
+                    String t3 = s + c3 + "";
+                    res.add(t1);
+                    res.add(t2);
+                    res.add(t3);
+                }
+                result = res;
+            }else{
+                if(result.isEmpty()){
+                    String t1 = c1 + "";
+                    String t2 = c2 + "";
+                    String t3 = c3 + "";
+                    String t4 = c4 + "";
+                    result.add(t1);
+                    result.add(t2);
+                    result.add(t3);
+                    result.add(t4);
+                    continue;
+                }
+                List<String> res = new ArrayList<>();
+                for(String s : result){
+                    String t1 = s + c1 + "";
+                    String t2 = s + c2 + "";
+                    String t3 = s + c3 + "";
+                    String t4 = s + c4 + "";
+                    res.add(t1);
+                    res.add(t2);
+                    res.add(t3);
+                    res.add(t4);
+                }
+                result = res;
+            }
+        }
+        return result;
+    }
+}
