@@ -1,0 +1,25 @@
+//Greedy method
+class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+        if(s.length == 0){
+            return 0;
+        }        
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int flag[] = new int[s.length];
+        Arrays.fill(flag,0);
+        int count = 0;
+        for(int i = 0; i < g.length; i++){
+            int j = 0;
+            while((flag[j] == 1 || g[i]>s[j]) && j < flag.length){
+                j++;
+                if(j == flag.length){
+                    return count;
+                }
+            }
+            count++;
+            flag[j] = 1;
+        }
+        return count;
+    }
+}
