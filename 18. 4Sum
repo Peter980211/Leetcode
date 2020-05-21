@@ -32,3 +32,45 @@ class Solution {
         return ret;
     }
 }
+
+//结合3Sum的双指针法
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> ret = new LinkedList<>();
+        Arrays.sort(nums);
+        int a, b, c, d;
+        int l = nums.length;
+        for(a = 0; a < l - 3; a++){
+            if(a > 0 && nums[a] == nums[a-1]){
+                continue;
+            }
+            for(b = a + 1; b < l - 2; b++){
+                if(b > a + 1 && nums[b] == nums[b-1]){
+                    continue;
+                }
+                c = b + 1;
+                d = l - 1;
+                while(c < d){
+                    int sum = nums[a] + nums[b] + nums[c] + nums[d];
+                    if(sum == target){
+                        List<Integer> line = new ArrayList<>(Arrays.asList(nums[a],nums[b],nums[c],nums[d]));
+                        ret.add(line);
+                        while(c < d && nums[c+1] == nums[c]){
+                            c++;
+                        }
+                        while(c < d && nums[d-1] == nums[d]){
+                            d--;
+                        }
+                        c++;
+                        d--;
+                    }else if(sum < target){
+                        c++;
+                    }else if(sum > target){
+                        d--;
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+}
