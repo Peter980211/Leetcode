@@ -1,0 +1,28 @@
+//学习回溯法、DFS
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> ret = new LinkedList<>();
+        StringBuilder s = new StringBuilder();
+        dfs(s,ret,0,0,n);
+        return ret;
+    }
+    private void dfs(StringBuilder s, List<String> ret, int open, int close, int n){
+        if(open == n && close == n){
+            ret.add(s.toString());
+            return;
+        }
+        if(close > open){
+            return;
+        }
+        if(open < n){
+            s.append("(");
+            dfs(s, ret, open + 1, close, n);
+            s.deleteCharAt(s.length() - 1);
+        }
+        if(close < n){
+            s.append(")");
+            dfs(s, ret, open, close + 1, n);
+            s.deleteCharAt(s.length() - 1);
+        }
+    }
+}
