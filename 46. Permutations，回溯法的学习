@@ -1,0 +1,51 @@
+/*注意一个错误
+第一次完成时，代码在运行的时候输出如下：
+        [[], [], [], [], [], []]
+
+原因出现在递归终止条件这里，注意第7行的错误：
+        if(nums.size() == 0){
+            //ret.add(cur);这里不能这样add
+            ret.add(new LinkedList<>(cur));
+            return;
+        }
+cur 这个变量所指向的对象在递归的过程中只有一份，深度优先遍历完成以后，因为回到了根结点
+（因为我们之前说了，从深层结点回到浅层结点的时候，需要撤销之前的选择），因此 cur 这个变量回到根结点以后都为空。
+
+在 Java 中，因为都是值传递，对象类型变量在传参的过程中，复制的都是变量的地址。
+这些地址被添加到 ret 变量，但实际上指向的是同一块内存地址，因此我们会看到 6 个空的列表对象。
+解决的方法很简单，在 ret.add(cur); 这里做一次拷贝即可。
+*/
+
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ret = new LinkedList<>();
+        List<Integer> n = new LinkedList<>();
+        List<Integer> cur = new LinkedList<>();
+        for(int i = 0; i < nums.length; i++){
+            n.add(nums[i]);
+        }
+        dfs(n,ret,cur);
+        return ret;
+    }
+
+    private void dfs(List<Integer> nums, List<List<Integer>> ret, List<Integer> cur){
+        if(nums.size() == 0){
+            //System.out.println(cur.toString());
+            //ret.add(cur);这里不能这样add
+            ret.add(new LinkedList<>(cur));
+            return;
+        }
+        for(int i = 0; i < nums.size(); i++){
+            cur.add(nums.get(i));
+            //System.out.print(cur.toString());
+            List<Integer> newNums = new LinkedList<>();
+            for(int j = 0; j < nums.size(); j++){
+                if(j != i){
+                    newNums.add(nums.get(j));
+                }
+            }
+            dfs(newNums, ret, cur);
+            cur.remove(cur.size() - 1);
+        }
+    }
+}
