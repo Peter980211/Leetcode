@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> ret = new LinkedList<>();
+        dfs(candidates, new LinkedList<>(), ret, target, 0);
+        return ret;
+   }
+   private void dfs(int[] c, List<Integer> cur, List<List<Integer>> ret, int target, int j){
+       int sum = 0;
+       int i;
+       for(i = 0; i < cur.size(); i++){
+           sum += cur.get(i);
+       }
+       if(sum == target){
+           ret.add(new LinkedList<>(cur));
+           return;
+       }
+       if(sum > target){
+           return;
+       }
+       if(sum < target){
+           for(i = j; i < c.length; i++){
+               cur.add(c[i]);
+               dfs(c, cur, ret, target, i);
+               cur.remove(cur.size() - 1);
+           }
+       }
+   }
+}
