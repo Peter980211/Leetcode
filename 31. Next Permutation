@@ -1,0 +1,31 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if(nums.length == 1){
+            return;
+        }
+        int i, j = 0;
+        for(i = nums.length - 1; i > 0; i--){
+            j = i - 1;
+            if(nums[j] < nums[i]){
+                break;
+            }
+            if(j == 0){
+                Arrays.sort(nums);
+                return;
+            }
+        }
+        int tmp = nums[j];
+        //System.out.println(nums[j]);
+        Arrays.sort(nums, j + 1, nums.length);
+        //System.out.println(j);
+        for(i = j + 1; i < nums.length; i++){
+            if(nums[i] > tmp){
+                //System.out.println(nums[i]);
+                nums[j] = nums[i];
+                nums[i] = tmp;
+                break;
+            }
+        }
+        return;
+    }
+}
